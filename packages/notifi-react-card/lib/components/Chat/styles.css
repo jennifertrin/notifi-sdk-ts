@@ -1,0 +1,79 @@
+.notifi--chat {
+  --notifi-chat-color-blue: #1448f3;
+  --notifi-chat-color-midnight: #262949;
+  --notifi-chat-color-dusk: #80829d;
+  --notifi-chat-color-eggshell: #f5f6fb;
+  --notifi-chat-color-cloud: #e8ebf5;
+  --notifi-chat-color-heather: #b6b8d5;
+  --notifi-chat-color-black: #000000;
+  --notifi-chat-color-black-opacity-4: rgba(0, 0, 0, 0.04);
+  --notifi-chat-color-white: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+.NotifiChatSupport {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+
+.NotifiChatSupport--IconBtn {
+  text-align: right;
+}
+
+.NotifiChatSupport--Card {
+  width: 364px;
+  height: 517px;
+  border: 1px solid var(--notifi-chat-color-cloud);
+  margin-bottom: 5px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 30px var(--notifi-chat-color-black-opacity-4);
+}
+
+.NotifiChatSupport--Card__Greeting {
+  padding: 40px 24px 28px 24px;
+}
+
+.NotifiChatSupport--Card__Greeting--Title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 27px;
+  text-align: center;
+  color: var(--notifi-chat-color-midnight);
+}
+
+.NotifiChatSupport--Card__Greeting--SubTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 116%;
+  text-align: center;
+  margin-top: 5px;
+  /* or 19px */
+
+  color: var(--notifi-chat-color-dusk);
+}
+
+.NotifiChatSupport--Form {
+  padding-top: 23px;
+}
+
+.NotifiChatSupport--Form__Text {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: var(--notifi-chat-color-midnight);
+}
