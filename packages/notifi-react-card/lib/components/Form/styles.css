@@ -1,0 +1,29 @@
+.Notifi--InputWrapper {
+  /* fallback color */
+  background-color: #f5f6fb;
+  background-color: var(--notifi-chat-color-eggshell);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.Notifi--Input {
+  padding: 12px;
+  width: 100%;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 17px;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background-color: var(--notifi-chat-color-eggshell);
+}
+
+.Notifi--Input::placeholder {
+  color: var(--notifi-chat-color-dusk);
+}
+
+.Notifi--Input__Error {
+  outline: 1px solid tomato;
+}
