@@ -75,6 +75,10 @@ export type WalletParams =
       walletBlockchain: 'ACALA';
       accountAddress: string;
       walletPublicKey: string;
+    }>
+  | Readonly<{
+      walletBlockchain: 'NEAR';
+      walletPublicKey: string;
     }>;
 
 /**
@@ -202,6 +206,20 @@ const signMessage = async ({
         messageBuffer,
       );
       return signedBuffer;
+    }
+    case 'NEAR': {
+      if (signer.walletBlockchain !== params.walletBlockchain) {
+        throw new Error('Signer and config have different walletBlockchain');
+      }
+
+      const { walletPublicKey } = params;
+      const messageBuffer = new TextEncoder().encode(
+        `${SIGNING_MESSAGE}${walletPublicKey}${dappAddress}${timestamp.toString()}`,
+      );
+
+      const signedBuffer = await signer.signMessage('mainnet', walletPublicKey, messageBuffer);
+      const signature = Buffer.from(signedBuffer).toString('hex');
+      return signature;
     }
   }
 };

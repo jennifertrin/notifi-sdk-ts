@@ -1,6 +1,7 @@
 import {
   AcalaSignMessageFunction,
   AptosSignMessageFunction,
+  NearSignMessageFunction,
   NotifiEnvironment,
   Uint8SignMessageFunction,
 } from '@notifi-network/notifi-react-hooks';
@@ -53,21 +54,29 @@ export type AcalaParams = Readonly<{
   signMessage: AcalaSignMessageFunction;
 }>;
 
+export type NearParams = Readonly<{
+  walletBlockchain: 'NEAR';
+  walletPublicKey: string;
+  signMessage: NearSignMessageFunction;
+}>;
+
+type WalletParams =
+  | SolanaParams
+  | EthereumParams
+  | PolygonParams
+  | ArbitrumParams
+  | BinanceParams
+  | AptosParams
+  | AcalaParams
+  | NearParams;
+
 export type NotifiParams = Readonly<{
   alertConfigurations?: Record<string, AlertConfiguration | null>;
   dappAddress: string;
   env: NotifiEnvironment;
   keepSubscriptionData?: boolean;
 }> &
-  (
-    | SolanaParams
-    | EthereumParams
-    | PolygonParams
-    | ArbitrumParams
-    | BinanceParams
-    | AptosParams
-    | AcalaParams
-  );
+  WalletParams;
 
 export const NotifiContext: React.FC<React.PropsWithChildren<NotifiParams>> = ({
   children,

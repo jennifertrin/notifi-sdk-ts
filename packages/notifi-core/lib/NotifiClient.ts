@@ -229,6 +229,12 @@ export type AcalaSignMessageFunction = (
   message: string,
 ) => Promise<hexString>;
 
+export type NearSignMessageFunction = (
+  walletPublicKey: string,
+  networkId: string,
+  message: Uint8Array,
+) => Promise<Uint8Array>;
+
 export type SignMessageParams =
   | Readonly<{
       walletBlockchain: 'SOLANA';
@@ -257,6 +263,10 @@ export type SignMessageParams =
   | Readonly<{
       walletBlockchain: 'ACALA';
       signMessage: AcalaSignMessageFunction;
+    }>
+  | Readonly<{
+      walletBlockchain: 'NEAR';
+      signMessage: NearSignMessageFunction;
     }>;
 
 export type NotifiClient = Readonly<{
