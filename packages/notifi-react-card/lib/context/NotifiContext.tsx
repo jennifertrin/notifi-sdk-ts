@@ -57,6 +57,7 @@ export type AcalaParams = Readonly<{
 export type NearParams = Readonly<{
   walletBlockchain: 'NEAR';
   walletPublicKey: string;
+  accountAddress: string;
   signMessage: NearSignMessageFunction;
 }>;
 

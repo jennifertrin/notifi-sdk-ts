@@ -79,6 +79,7 @@ export type WalletParams =
   | Readonly<{
       walletBlockchain: 'NEAR';
       walletPublicKey: string;
+      accountAddress: string;
     }>;
 
 /**
@@ -208,17 +209,20 @@ const signMessage = async ({
       return signedBuffer;
     }
     case 'NEAR': {
-      if (signer.walletBlockchain !== params.walletBlockchain) {
+      if (signer.walletBlockchain !== 'NEAR') {
         throw new Error('Signer and config have different walletBlockchain');
       }
 
-      const { walletPublicKey } = params;
+      const { walletPublicKey, accountAddress } = params;
 
-      console.log('walletPublicKey', walletPublicKey);
-      const message = `${SIGNING_MESSAGE}${walletPublicKey}${dappAddress}${timestamp.toString()}`;
+      const message = `${walletPublicKey}${dappAddress}${accountAddress}${timestamp.toString()}`;
+
+      console.log('signed message', message);
 
       const signedBuffer = await signer.signMessage(message);
+      console.log('signedBuffer', signedBuffer);
       const signature = Buffer.from(signedBuffer).toString('hex');
+      console.log('signature', signature);
       return signature;
     }
   }
@@ -433,6 +437,7 @@ const useNotifiClient = (
    */
   const logIn = useCallback(
     async (signer: SignMessageParams) => {
+      console.log('signer', signer);
       if (signer == null) {
         throw new Error('Signer cannot be null');
       }
@@ -447,9 +452,13 @@ const useNotifiClient = (
           timestamp,
           signer,
         });
+
+        console.log('signature', signature);
         const result = await service.logInFromDapp({
           accountId:
-            walletBlockchain === 'APTOS' || walletBlockchain === 'ACALA'
+            walletBlockchain === 'APTOS' ||
+            walletBlockchain === 'ACALA' ||
+            walletBlockchain === 'NEAR'
               ? config.accountAddress
               : undefined,
           walletPublicKey,

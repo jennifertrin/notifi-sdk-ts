@@ -1,3 +1,7 @@
+import { setupWalletSelector } from '@near-wallet-selector/core';
+import '@near-wallet-selector/modal-ui/styles.css';
+import { setupNearWallet } from '@near-wallet-selector/near-wallet';
+
 import { useWalletSelector } from '../NEARWalletContextProvider';
 
 export const NearSignIn: React.FC = () => {
@@ -7,5 +11,19 @@ export const NearSignIn: React.FC = () => {
     modal.show();
   };
 
-  return <button onClick={handleSignIn}>Log in</button>;
+  const handleSignOut = async () => {
+    const selector = await setupWalletSelector({
+      network: 'testnet',
+      modules: [setupNearWallet()],
+    });
+    const wallet = await selector.wallet('my-near-wallet');
+    await wallet.signOut();
+  };
+
+  return (
+    <div>
+      <button onClick={handleSignIn}>Log in</button>
+      <button onClick={handleSignOut}>Log out</button>
+    </div>
+  );
 };

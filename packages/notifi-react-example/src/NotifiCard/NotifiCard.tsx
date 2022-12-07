@@ -16,23 +16,33 @@ export const NotifiCard: React.FC = () => {
 
   console.log('notifiCard', accounts, accountId, modal);
 
-  const ACCOUNT_ID = 'jennifer-notifi.test';
+  const ACCOUNT_ID = 'jennifer-notifi.testnet';
 
   if (accountId === null) return null;
 
   const keyStore = new keyStores.BrowserLocalStorageKeyStore();
 
-  const config = {
-    keyStore,
-    networkId: 'testnet',
-    nodeUrl: 'https://rpc.testnet.near.org',
-  };
+  console.log('keyStore', keyStore);
+
+  // const config = {
+  //   keyStore,
+  //   networkId: 'testnet',
+  //   nodeUrl: 'https://rpc.testnet.near.org',
+  // };
 
   async function signMessage(message: string) {
-    const keyPair = await keyStore.getKey(config.networkId, ACCOUNT_ID);
+    const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
+
+    console.log('message', message);
     const msg = Buffer.from(message);
 
+    console.log('msg', msg);
+
     const { signature } = keyPair.sign(msg);
+
+    const isValid = keyPair.verify(msg, signature);
+
+    console.log('isValid', isValid);
 
     return signature;
   }
@@ -70,7 +80,10 @@ export const NotifiCard: React.FC = () => {
         dappAddress="junitest.xyz"
         walletBlockchain="NEAR"
         env="Development"
-        walletPublicKey={accountId}
+        walletPublicKey={
+          'ed25519:5ix7EqnEjgzt8QG8g1oLm7ZXvfzyZ9i12VWwFHQ4AjJXkXcJaj5yzQayEFmpvnnxzqWvY6oZdNV5NARQsQUG534k'
+        }
+        accountAddress={accountId}
         signMessage={signMessage}
       >
         <NotifiSubscriptionCard
