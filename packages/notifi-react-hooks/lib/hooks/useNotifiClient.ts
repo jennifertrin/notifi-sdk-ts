@@ -213,11 +213,11 @@ const signMessage = async ({
       }
 
       const { walletPublicKey } = params;
-      const messageBuffer = new TextEncoder().encode(
-        `${SIGNING_MESSAGE}${walletPublicKey}${dappAddress}${timestamp.toString()}`,
-      );
 
-      const signedBuffer = await signer.signMessage('mainnet', walletPublicKey, messageBuffer);
+      console.log('walletPublicKey', walletPublicKey);
+      const message = `${SIGNING_MESSAGE}${walletPublicKey}${dappAddress}${timestamp.toString()}`;
+
+      const signedBuffer = await signer.signMessage(message);
       const signature = Buffer.from(signedBuffer).toString('hex');
       return signature;
     }

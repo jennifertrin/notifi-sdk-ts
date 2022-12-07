@@ -217,6 +217,8 @@ export type Uint8SignMessageFunction = (
   message: Uint8Array,
 ) => Promise<Uint8Array>;
 
+export type NearSignMessageFunction = (message: string) => Promise<Uint8Array>;
+
 export type AptosSignMessageFunction = (
   message: string,
   nonce: number,
@@ -228,12 +230,6 @@ export type AcalaSignMessageFunction = (
   acalaAddress: string,
   message: string,
 ) => Promise<hexString>;
-
-export type NearSignMessageFunction = (
-  walletPublicKey: string,
-  networkId: string,
-  message: Uint8Array,
-) => Promise<Uint8Array>;
 
 export type SignMessageParams =
   | Readonly<{
