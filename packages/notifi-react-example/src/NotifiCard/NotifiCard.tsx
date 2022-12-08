@@ -3,6 +3,7 @@ import {
   NotifiSubscriptionCard,
 } from '@notifi-network/notifi-react-card';
 import '@notifi-network/notifi-react-card/dist/index.css';
+import { sha256 } from 'js-sha256';
 import { keyStores } from 'near-api-js';
 import React, { useEffect, useMemo, useState } from 'react';
 
@@ -46,7 +47,9 @@ export const NotifiCard: React.FC = () => {
   async function signMessage(message: string) {
     const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
 
-    const msg = Buffer.from(message);
+    const msg = new Uint8Array(sha256.array(message));
+
+    console.log('msg', msg);
 
     const { signature } = keyPair.sign(msg);
 

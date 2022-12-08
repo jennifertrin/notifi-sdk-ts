@@ -216,13 +216,9 @@ const signMessage = async ({
       const { walletPublicKey, accountAddress } = params;
 
       const message = `${walletPublicKey}${dappAddress}${accountAddress}${timestamp.toString()}`;
-
-      console.log('signed message', message);
-
       const signedBuffer = await signer.signMessage(message);
-      console.log('signedBuffer', signedBuffer);
-      const signature = Buffer.from(signedBuffer).toString('hex');
-      console.log('signature', signature);
+      const signature = Buffer.from(signedBuffer).toString('base64');
+      console.log('signature in sign message', signature);
       return signature;
     }
   }
@@ -452,8 +448,6 @@ const useNotifiClient = (
           timestamp,
           signer,
         });
-
-        console.log('signature', signature);
         const result = await service.logInFromDapp({
           accountId:
             walletBlockchain === 'APTOS' ||
