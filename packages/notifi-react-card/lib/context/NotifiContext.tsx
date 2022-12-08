@@ -1,7 +1,6 @@
 import {
   AcalaSignMessageFunction,
   AptosSignMessageFunction,
-  NearSignMessageFunction,
   NotifiEnvironment,
   Uint8SignMessageFunction,
 } from '@notifi-network/notifi-react-hooks';
@@ -58,7 +57,7 @@ export type NearParams = Readonly<{
   walletBlockchain: 'NEAR';
   walletPublicKey: string;
   accountAddress: string;
-  signMessage: NearSignMessageFunction;
+  signMessage: Uint8SignMessageFunction;
 }>;
 
 type WalletParams =

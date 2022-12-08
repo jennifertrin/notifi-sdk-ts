@@ -23,7 +23,9 @@ export const NotifiCard: React.FC = () => {
   useEffect(() => {
     async function getPublicKey() {
       const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
-      setPublicKey(keyPair.getPublicKey().toString());
+      const publicKey = keyPair.getPublicKey().toString();
+      const removeBeginning = publicKey.replace('ed25519:', '');
+      setPublicKey(removeBeginning);
     }
     getPublicKey();
   }, [keyStore]);
@@ -44,16 +46,16 @@ export const NotifiCard: React.FC = () => {
   //   nodeUrl: 'https://rpc.testnet.near.org',
   // };
 
-  async function signMessage(message: string) {
+  async function signMessage(message: Uint8Array) {
     const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
 
-    const msg = new Uint8Array(sha256.array(message));
+    console.log('keyPair', keyPair);
 
-    console.log('msg', msg);
+    const { signature } = keyPair.sign(message);
 
-    const { signature } = keyPair.sign(msg);
+    console.log('signature', signature);
 
-    const isValid = keyPair.verify(msg, signature);
+    const isValid = keyPair.verify(message, signature);
 
     console.log('isValid', isValid);
 

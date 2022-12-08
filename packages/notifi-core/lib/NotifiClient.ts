@@ -217,8 +217,6 @@ export type Uint8SignMessageFunction = (
   message: Uint8Array,
 ) => Promise<Uint8Array>;
 
-export type NearSignMessageFunction = (message: string) => Promise<Uint8Array>;
-
 export type AptosSignMessageFunction = (
   message: string,
   nonce: number,
@@ -262,7 +260,7 @@ export type SignMessageParams =
     }>
   | Readonly<{
       walletBlockchain: 'NEAR';
-      signMessage: NearSignMessageFunction;
+      signMessage: Uint8SignMessageFunction;
     }>;
 
 export type NotifiClient = Readonly<{

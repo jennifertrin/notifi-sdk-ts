@@ -215,8 +215,17 @@ const signMessage = async ({
 
       const { walletPublicKey, accountAddress } = params;
 
-      const message = `${walletPublicKey}${dappAddress}${accountAddress}${timestamp.toString()}`;
-      const signedBuffer = await signer.signMessage(message);
+      const message = `${
+        `ed25519:` + walletPublicKey
+      }${dappAddress}${accountAddress}${timestamp.toString()}`;
+      const textAsBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await window.crypto.subtle.digest(
+        'SHA-256',
+        textAsBuffer,
+      );
+      const newMessage = new Uint8Array(hashBuffer);
+
+      const signedBuffer = await signer.signMessage(newMessage);
       const signature = Buffer.from(signedBuffer).toString('base64');
       console.log('signature in sign message', signature);
       return signature;
