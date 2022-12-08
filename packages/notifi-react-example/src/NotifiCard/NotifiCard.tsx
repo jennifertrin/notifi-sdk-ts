@@ -4,7 +4,7 @@ import {
 } from '@notifi-network/notifi-react-card';
 import '@notifi-network/notifi-react-card/dist/index.css';
 import { keyStores } from 'near-api-js';
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useWalletSelector } from '../NEARWalletContextProvider';
 import './NotifiCard.css';
@@ -12,15 +12,28 @@ import './NotifiCard.css';
 // import { useConnection, useWallet } from '@solana/wallet-adapter-react';
 
 export const NotifiCard: React.FC = () => {
+  const [publicKey, setPublicKey] = useState<string>('');
   const { accounts, accountId, modal } = useWalletSelector();
+
+  const keyStore = useMemo(() => {
+    return new keyStores.BrowserLocalStorageKeyStore();
+  }, []);
+
+  useEffect(() => {
+    async function getPublicKey() {
+      const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
+      setPublicKey(keyPair.getPublicKey().toString());
+    }
+    getPublicKey();
+  }, [keyStore]);
+
+  console.log('publicKey', publicKey);
 
   console.log('notifiCard', accounts, accountId, modal);
 
   const ACCOUNT_ID = 'jennifer-notifi.testnet';
 
   if (accountId === null) return null;
-
-  const keyStore = new keyStores.BrowserLocalStorageKeyStore();
 
   console.log('keyStore', keyStore);
 
@@ -33,10 +46,7 @@ export const NotifiCard: React.FC = () => {
   async function signMessage(message: string) {
     const keyPair = await keyStore.getKey('testnet', ACCOUNT_ID);
 
-    console.log('message', message);
     const msg = Buffer.from(message);
-
-    console.log('msg', msg);
 
     const { signature } = keyPair.sign(msg);
 
@@ -80,9 +90,7 @@ export const NotifiCard: React.FC = () => {
         dappAddress="junitest.xyz"
         walletBlockchain="NEAR"
         env="Development"
-        walletPublicKey={
-          'ed25519:5ix7EqnEjgzt8QG8g1oLm7ZXvfzyZ9i12VWwFHQ4AjJXkXcJaj5yzQayEFmpvnnxzqWvY6oZdNV5NARQsQUG534k'
-        }
+        walletPublicKey={publicKey}
         accountAddress={accountId}
         signMessage={signMessage}
       >
