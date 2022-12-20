@@ -1,6 +1,7 @@
 import {
   Alert,
   ClientConfiguration,
+  DiscordTarget,
   EmailTarget,
   Filter,
   NotificationHistory,
@@ -34,6 +35,7 @@ export type ClientData = Readonly<{
   sources: ReadonlyArray<Source>;
   targetGroups: ReadonlyArray<TargetGroup>;
   telegramTargets: ReadonlyArray<TelegramTarget>;
+  discordTargets: ReadonlyArray<DiscordTarget>;
 }>;
 
 export type AlertFrequency =
