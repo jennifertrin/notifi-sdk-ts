@@ -10,6 +10,7 @@ export * from './filterFragment';
 export * from './notificationHistoryEntryFragment';
 export * from './participantFragment';
 export * from './smsTargetFragment';
+export * from './discordTargetFragment';
 export * from './sourceFragment';
 export * from './sourceGroupFragment';
 export * from './targetGroupFragment';

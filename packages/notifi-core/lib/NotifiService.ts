@@ -6,6 +6,7 @@ export type NotifiService = Operations.BroadcastMessageService &
   Operations.CreateAlertService &
   Operations.CreateEmailTargetService &
   Operations.CreateSmsTargetService &
+  Operations.CreateDiscordTargetService &
   Operations.CreateSourceService &
   Operations.CreateSourceGroupService &
   Operations.CreateSupportConversationService &
@@ -26,6 +27,7 @@ export type NotifiService = Operations.BroadcastMessageService &
   Operations.GetSourcesService &
   Operations.GetSourceGroupsService &
   Operations.GetTargetGroupsService &
+  Operations.GetDiscordTargetsService &
   Operations.GetTelegramTargetsService &
   Operations.GetTopicsService &
   Operations.GetWebhookTargetsService &
